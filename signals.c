@@ -3,13 +3,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <string.h>
 
 static void sighandler(int signo) {
   int fd;
   char * err = "Exited due to SIGINT\n";
   if (SIGINT == signo) {
     fd = open("stuff", O_CREAT | O_WRONLY | O_APPEND, 0644);
-    write(fd, &err, sizeof(err));
+    write(fd, &err, strlen(err));
     close(fd);
     exit(1);
   }
